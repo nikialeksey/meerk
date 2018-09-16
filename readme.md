@@ -7,12 +7,26 @@ Simple bot which notifies your chats that you are in a meeting
 
 ## How to run
 
+Clone project:
+
+```bash
+git clone https://github.com/nikialeksey/meerk.git
+```
+
+Install dependencies and
+
+```bash
+pip install -r requirements.txt
+```
+
+[Configure](https://github.com/nikialeksey/meerk#how-to-configure) and run:
+
 ```bash
 python main.py
 ```
 
-Or you can use it as library for your service or app, see example in 
-[`main.py`](https://github.com/nikialeksey/meerk/blob/master/main.py).
+Or you can use it as library for your service or app (will be deployed to [pypi](https://pypi.org/) soon), 
+see example in [`main.py`](https://github.com/nikialeksey/meerk/blob/master/main.py).
 
 ## How to configure
 
@@ -74,7 +88,7 @@ meeting now, then update chat status to **Busy**, else **Available**.
 
 ## Thanks
 
-Thanks to @tobixen his project [caldav](https://github.com/python-caldav/caldav). I 
+Thanks to [@tobixen](https://github.com/tobixen) his project [caldav](https://github.com/python-caldav/caldav). I 
 [use it in **Meerk**](https://github.com/nikialeksey/meerk/tree/master/meerk/caldav) temporary. When 
 [#11](https://github.com/python-caldav/caldav/issues/11) appears in release build I get rid of the immediate code of
 project [caldav](https://github.com/python-caldav/caldav) and will be use as dependency or write my own 
