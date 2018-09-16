@@ -68,5 +68,5 @@ available_emoji: :computer:
 
 ## How it works
 
-**Meerk** periodically synchronizes specified in `local.cfg` calendars and periodically verify if there is a 
+**Meerk** periodically synchronizes specified in `local.cfg` calendars and periodically verifies if there is a 
 meeting now, then update chat status to **Busy**, else **Available**. 
