@@ -65,3 +65,8 @@ busy_emoji: :shushing_face:
 available_text: Android development 09.00 - 17.00
 available_emoji: :computer:
 ```
+
+## How it works
+
+**Meerk** periodically synchronizes specified in `local.cfg` calendars and periodically verify if there is a 
+meeting now, then update chat status to **Busy**, else **Available**. 
