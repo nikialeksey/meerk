@@ -26,16 +26,16 @@ from datetime import datetime
 import schedule
 from slackclient import SlackClient
 
-from meeker.caldav import DAVClient
-from meeker.calendar import Calendar
-from meeker.calendar import CalDavCalendar
-from meeker.calendar import LoggableCalendar
-from meeker.calendar import CompositeCalendar
-from meeker.calendar import IcsCalendar
-from meeker.status import SlackStatus
-from meeker.status import Status
-from meeker.status import CompositeStatus
-from meeker.intervals import SimpleIntervals
+from meerk.caldav import DAVClient
+from meerk.calendar import Calendar
+from meerk.calendar import CalDavCalendar
+from meerk.calendar import LoggableCalendar
+from meerk.calendar import CompositeCalendar
+from meerk.calendar import IcsCalendar
+from meerk.status import SlackStatus
+from meerk.status import Status
+from meerk.status import CompositeStatus
+from meerk.intervals import SimpleIntervals
 
 
 def update_status(calendar, busy, available):

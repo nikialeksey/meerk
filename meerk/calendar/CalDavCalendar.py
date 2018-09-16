@@ -25,8 +25,8 @@ from datetime import timedelta
 from icalendar import Event
 
 from Calendar import Calendar
-from meeker.caldav import DAVClient
-from meeker.intervals import Intervals
+from meerk.caldav import DAVClient
+from meerk.intervals import Intervals
 
 
 class CalDavCalendar(Calendar):

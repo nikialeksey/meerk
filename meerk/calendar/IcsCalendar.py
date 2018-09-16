@@ -26,7 +26,7 @@ from datetime import timedelta
 from icalendar import Calendar as iCalendar
 
 from Calendar import Calendar
-from meeker.intervals import Intervals
+from meerk.intervals import Intervals
 
 
 class IcsCalendar(Calendar):

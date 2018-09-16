@@ -30,14 +30,14 @@ with open('requirements.txt') as r:
         install_requirements.append(line)
 
 setuptools.setup(
-    name='meeker',
+    name='meerk',
     version='0.1.0',
     description='',
     long_description=long_description,
     long_description_content_type="text/markdown",
     author='Alexey Niktin',
     author_email='nikialeksey@gmail.com',
-    url='https://github.com/nikialeksey/meeker',
+    url='https://github.com/nikialeksey/meerk',
     license='MIT',
     packages=setuptools.find_packages(),
     classifiers=[

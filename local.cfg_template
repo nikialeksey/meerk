@@ -1,14 +1,14 @@
-[caldav-calendar]
-url: <caldav url>
-username: <caldav username>
-password: <caldav password>
+;[caldav-calendar]
+;url: <caldav url>
+;username: <caldav username>
+;password: <caldav password>
 
-[ics-calendar]
-url: <ics calendar public url>
+;[ics-calendar]
+;url: <ics calendar public url>
 
-[slack-app]
-token: <slack legacy token from https://api.slack.com/custom-integrations/legacy-tokens>
-busy_text: <status text when busy>
-busy_emoji: <status emoji when busy>
-available_text: <status text when available>
-available_emoji: <status emoji when available>
+;[slack-app]
+;token: <slack legacy token from https://api.slack.com/custom-integrations/legacy-tokens>
+;busy_text: <status text when busy>
+;busy_emoji: <status emoji when busy>
+;available_text: <status text when available>
+;available_emoji: <status emoji when available>
