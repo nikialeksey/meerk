@@ -1,6 +1,7 @@
 # Meerk
 
-**Meerk** - **MEE**ting ma**RK**  
+[![Mit License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nikialeksey/meerk/blob/master/LICENSE)
+![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)
 
 Simple bot which notifies your chats that you are in a meeting
 
@@ -70,3 +71,11 @@ available_emoji: :computer:
 
 **Meerk** periodically synchronizes specified in `local.cfg` calendars and periodically verifies if there is a 
 meeting now, then update chat status to **Busy**, else **Available**. 
+
+## Thanks
+
+Thanks to @tobixen his project [caldav](https://github.com/python-caldav/caldav). I 
+[use it in **Meerk**](https://github.com/nikialeksey/meerk/tree/master/meerk/caldav) temporary. When 
+[#11](https://github.com/python-caldav/caldav/issues/11) appears in release build I get rid of the immediate code of
+project [caldav](https://github.com/python-caldav/caldav) and will be use as dependency or write my own 
+[CalDav](https://en.wikipedia.org/wiki/CalDAV) implementation.
