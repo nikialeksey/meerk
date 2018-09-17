@@ -2,6 +2,7 @@
 
 [![Mit License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nikialeksey/meerk/blob/master/LICENSE)
 ![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)
+[![PyPI version](https://badge.fury.io/py/meerk.svg)](https://badge.fury.io/py/meerk)
 
 Simple bot which notifies your chats that you are in a meeting
 
@@ -25,8 +26,8 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Or you can use it as library for your service or app (will be deployed to [pypi](https://pypi.org/) soon), 
-see example in [`main.py`](https://github.com/nikialeksey/meerk/blob/master/main.py).
+Or you can use it as library for your service or app, see example in 
+[`main.py`](https://github.com/nikialeksey/meerk/blob/master/main.py).
 
 ## How to configure
 
@@ -88,8 +89,8 @@ meeting now, then update chat status to **Busy**, else **Available**.
 
 ## Thanks
 
-Thanks to [@tobixen](https://github.com/tobixen) his project [caldav](https://github.com/python-caldav/caldav). I 
-[use it in **Meerk**](https://github.com/nikialeksey/meerk/tree/master/meerk/caldav) temporary. When 
+Thanks to [@tobixen](https://github.com/tobixen) and his project [caldav](https://github.com/python-caldav/caldav). I 
+[use it in the **Meerk**](https://github.com/nikialeksey/meerk/tree/master/meerk/caldav) temporary. When 
 [#11](https://github.com/python-caldav/caldav/issues/11) appears in release build I get rid of the immediate code of
 project [caldav](https://github.com/python-caldav/caldav) and will be use as dependency or write my own 
 [CalDav](https://en.wikipedia.org/wiki/CalDAV) implementation.
