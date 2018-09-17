@@ -19,7 +19,16 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from CompositeStatus import CompositeStatus
-from LoggableStatus import LoggableStatus
-from SlackStatus import SlackStatus
 from Status import Status
+
+
+class LoggableStatus(Status):
+
+    def __init__(self, origin):
+        # type: (Status) -> LoggableStatus
+        self.origin = origin
+
+    def sync(self):
+        # type: () -> None
+        self.origin.sync()
+        print('Successful status syncing!')
