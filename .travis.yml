@@ -7,5 +7,6 @@ python:
   - "3.6"
 install:
   - pip install -r requirements.txt
+  - pip install "setuptools == 40.3.0"
 script:
   - python setup.py test
