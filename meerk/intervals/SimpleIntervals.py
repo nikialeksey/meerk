@@ -52,7 +52,12 @@ class SimpleIntervals(Intervals):
                         )
                         rrule._until = end
                         duration = dtend - dtstart
-                        for time in list(rrule):
+                        excludes = set()
+                        if 'exdate' in component:
+                            for exdates in component['exdate']:
+                                for exdate in exdates.dts:
+                                    excludes.add(self.__without_tzinfo(exdate.dt).date())
+                        for time in filter(lambda time: time.date() not in excludes, list(rrule)):
                             self.tree.add(Interval(time, time + duration, component))
                     else:
                         self.tree.add(Interval(dtstart, dtend, component))
