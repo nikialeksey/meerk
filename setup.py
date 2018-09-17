@@ -55,3 +55,5 @@ setuptools.setup(
     setup_requires=["pytest-runner"],
     tests_require=["pytest"]
 )
+
+# todo #1:30m Add other python versions support

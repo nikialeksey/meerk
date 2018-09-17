@@ -83,6 +83,10 @@ available_text: Android development 09.00 - 17.00
 available_emoji: :computer:
 ```
 
+Slack has a [legacy tokens](https://api.slack.com/custom-integrations/legacy-tokens) which you need to generate
+in order to update your slack status and fill the `token` in section `slack*`. In feature, **Meerk** migrates 
+to slack app.
+
 ## How it works
 
 **Meerk** periodically synchronizes specified in `local.cfg` calendars and periodically verifies if there is a 
