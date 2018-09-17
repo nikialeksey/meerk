@@ -47,8 +47,6 @@ def update_status(calendar, busy, available):
 
 
 if __name__ == '__main__':
-    intervals = SimpleIntervals()
-
     calendars = []
     busy_statuses = []
     available_statuses = []
@@ -64,14 +62,14 @@ if __name__ == '__main__':
                         username=config.get(section, 'username'),
                         password=config.get(section, 'password')
                     ),
-                    intervals
+                    SimpleIntervals()
                 )
             )
         elif section.startswith('ics'):
             calendars.append(
                 IcsCalendar(
                     config.get(section, 'url'),
-                    intervals
+                    SimpleIntervals()
                 )
             )
         elif section.startswith('slack'):
