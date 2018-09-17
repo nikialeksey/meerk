@@ -29,14 +29,18 @@ class LoggableCalendar(Calendar):
     def __init__(self, origin):
         # type: (Calendar) -> LoggableCalendar
         self.origin = origin
+        self.__is_busy = []
 
     def is_busy(self, time):
         # type: (datetime) -> bool
         is_busy = self.origin.is_busy(time)
-        if is_busy:
+        if not self.__is_busy:
+            self.__is_busy = [not is_busy]
+        if is_busy and not self.__is_busy[0]:
             print('Busy!')
-        else:
+        elif not is_busy and self.__is_busy[0]:
             print('Available')
+        self.__is_busy = [is_busy]
         return is_busy
 
     def sync(self):
