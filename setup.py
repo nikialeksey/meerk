@@ -51,5 +51,7 @@ setuptools.setup(
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
     ],
-    install_requires=install_requirements
+    install_requires=install_requirements,
+    setup_requires=["pytest-runner"],
+    tests_require=["pytest"]
 )
