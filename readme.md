@@ -9,6 +9,8 @@ Simple bot which notifies your chats that you are in a meeting
 
 ## How to run
 
+Firstly ensure you use `python 2.7`.
+
 Clone project:
 
 ```bash
@@ -52,6 +54,9 @@ username: <another caldav username>
 password: <another caldav password>
 ```
 
+**Important!** [Google Calendar](https://calendar.google.com) does not support cal dav, and you have only one way
+to make it work - using [*.ics files](https://github.com/nikialeksey/meerk#ics-calendars). 
+
 ### Ics calendars
 
 To add calendar using [`ics`](https://en.wikipedia.org/wiki/ICalendar) file you need to uncomment
@@ -67,6 +72,9 @@ url: <another ics url>
 [ics-yet-another]
 url: <yet another ics url>
 ```
+
+To find your calendar `*.ics` file link usually you need to open calendar settings, make it public, and find link to
+calendar `*.ics` file.
 
 ### Slack
 

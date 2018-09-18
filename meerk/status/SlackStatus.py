@@ -35,10 +35,12 @@ class SlackStatus(Status):
 
     def sync(self):
         # type: () -> None
-        self.sc.api_call(
+        result = self.sc.api_call(
             'users.profile.set',
             profile={
                 'status_text': self.text,
                 'status_emoji': self.emoji
             }
         )
+        if not result['ok']:
+            raise SyncException("Can not sync slack status, because {0}".format(result['error']))
