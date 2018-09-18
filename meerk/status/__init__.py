@@ -23,3 +23,4 @@ from CompositeStatus import CompositeStatus
 from LoggableStatus import LoggableStatus
 from SlackStatus import SlackStatus
 from Status import Status
+from SyncException import SyncException
