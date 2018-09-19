@@ -74,5 +74,5 @@ class SimpleIntervals(Intervals):
         if type(time) == date:
             time = datetime.combine(time, datetime.min.time())
         if time.tzinfo is None:
-            time.replace(tzinfo=dateutil.tz.gettz('UTC'))
+            time = time.replace(tzinfo=dateutil.tz.gettz('UTC'))
         return time.astimezone(dateutil.tz.tzlocal()).replace(tzinfo=None)

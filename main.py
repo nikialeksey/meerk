@@ -96,7 +96,7 @@ if __name__ == '__main__':
     available = CompositeStatus(available_statuses)
 
     schedule.every(1).minutes.do(calendar.sync)
-    schedule.every(1).seconds.do(
+    schedule.every(20).seconds.do(
         update_status,
         calendar,
         busy,
