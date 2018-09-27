@@ -23,6 +23,7 @@ import ConfigParser
 import time
 from datetime import datetime
 
+import dateutil
 import schedule
 from slackclient import SlackClient
 
@@ -62,14 +63,14 @@ if __name__ == '__main__':
                         username=config.get(section, 'username'),
                         password=config.get(section, 'password')
                     ),
-                    SimpleIntervals()
+                    SimpleIntervals(dateutil.tz.tzlocal())
                 )
             )
         elif section.startswith('ics'):
             calendars.append(
                 IcsCalendar(
                     config.get(section, 'url'),
-                    SimpleIntervals()
+                    SimpleIntervals(dateutil.tz.tzlocal())
                 )
             )
         elif section.startswith('slack'):
@@ -94,6 +95,8 @@ if __name__ == '__main__':
 
     busy = CompositeStatus(busy_statuses)
     available = CompositeStatus(available_statuses)
+
+    update_status(calendar, busy, available)
 
     schedule.every(1).minutes.do(calendar.sync)
     schedule.every(20).seconds.do(
