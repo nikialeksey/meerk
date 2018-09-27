@@ -23,4 +23,5 @@ from CalDavCalendar import CalDavCalendar
 from Calendar import Calendar
 from CompositeCalendar import CompositeCalendar
 from IcsCalendar import IcsCalendar
+from IgnoreDisconnectCalendar import IgnoreDisconnectCalendar
 from LoggableCalendar import LoggableCalendar

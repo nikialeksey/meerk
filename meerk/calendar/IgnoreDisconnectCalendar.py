@@ -20,33 +20,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 from datetime import datetime
-from datetime import timedelta
 
-from icalendar import Event
+from requests.exceptions import ConnectionError
 
 from Calendar import Calendar
-from meerk.caldav import DAVClient
-from meerk.intervals import Intervals
 
 
-class CalDavCalendar(Calendar):
+class IgnoreDisconnectCalendar(Calendar):
 
-    def __init__(self, dav, intervals):
-        # type: (DAVClient, Intervals) -> CalDavCalendar
-        self.dav = dav
-        self.intervals = intervals
+    def __init__(self, origin):
+        # type: (Calendar) -> IgnoreDisconnectCalendar
+        self.origin = origin
 
     def is_busy(self, time):
         # type: (datetime) -> bool
-        return self.intervals.is_inside(time)
+        return self.origin.is_busy(time)
 
     def sync(self):
         # type: () -> None
-        start = datetime.now() - timedelta(days=1)
-        end = datetime.now() + timedelta(days=1)
-        calendars = self.dav.principal().calendars()
-        self.intervals.clear()
-        for calendar in calendars:
-            events = calendar.date_search(start, end)
-            for event in events:
-                self.intervals.add(Event.from_ical(event.data).walk(), start, end)
+        try:
+            self.origin.sync()
+        except ConnectionError as e:
+            print('Can\'not sync calendar because there is problems with connection')

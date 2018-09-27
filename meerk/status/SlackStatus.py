@@ -19,7 +19,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from slackclient import SlackClient
+from ..slack import Api
 
 from Status import Status
 from SyncException import SyncException
@@ -27,15 +27,15 @@ from SyncException import SyncException
 
 class SlackStatus(Status):
 
-    def __init__(self, sc, text, emoji):
-        # type: (SlackClient, str, str) -> SlackStatus
-        self.sc = sc
+    def __init__(self, slack, text, emoji):
+        # type: (Api, str, str) -> SlackStatus
+        self.slack = slack
         self.text = text
         self.emoji = emoji
 
     def sync(self):
         # type: () -> None
-        result = self.sc.api_call(
+        result = self.slack.call(
             'users.profile.set',
             profile={
                 'status_text': self.text,
