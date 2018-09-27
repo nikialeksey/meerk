@@ -21,17 +21,21 @@
 # SOFTWARE.
 from datetime import date
 from datetime import datetime
+from datetime import timedelta
+from datetime import tzinfo
 
+import dateutil
 from icalendar.cal import Component
 from intervaltree import IntervalTree, Interval
 
 from Intervals import Intervals
-import dateutil
 
 
 class SimpleIntervals(Intervals):
 
-    def __init__(self):
+    def __init__(self, tzlocal):
+        # type: (tzinfo) -> SimpleIntervals
+        self.tzlocal = tzlocal
         self.tree = IntervalTree()
 
     def clear(self):
@@ -42,8 +46,9 @@ class SimpleIntervals(Intervals):
         # type: (list[Component], datetime, datetime) -> None
         for component in components:
             if component.name == 'VEVENT':
-                dtstart = self.__without_tzinfo(component['dtstart'].dt)
-                dtend = self.__without_tzinfo(component['dtend'].dt)
+                raw_dtstart = component['dtstart']
+                dtstart = self.__without_tzinfo(raw_dtstart.dt)
+                dtend = self.__without_tzinfo(component.get('dtend', raw_dtstart).dt)
                 if self.__is_intersect(start, end, dtstart, dtend):
                     if 'rrule' in component:
                         rrule = dateutil.rrule.rrulestr(
@@ -58,21 +63,27 @@ class SimpleIntervals(Intervals):
                                 for exdate in exdates.dts:
                                     excludes.add(self.__without_tzinfo(exdate.dt).date())
                         for time in filter(lambda time: time.date() not in excludes, list(rrule)):
-                            self.tree.add(Interval(time, time + duration, component))
+                            self.tree.add(self.__interval(time, time + duration, component))
                     else:
-                        self.tree.add(Interval(dtstart, dtend, component))
+                        self.tree.add(self.__interval(dtstart, dtend, component))
 
     def is_inside(self, time):
         # type: (datetime) -> bool
         return len(self.tree[time]) > 0
 
+    def __interval(self, start, end, data):
+        # type: (datetime, datetime, object) -> Interval
+        if start == end:
+            end = end + timedelta(seconds=1)
+        return Interval(start, end, data)
+
     def __is_intersect(self, a, b, c, d):
         # type: (datetime, datetime, datetime, datetime) -> bool
         return max(a, c) <= min(b, d)
 
-    def __without_tzinfo(self, time):
-        if type(time) == date:
-            time = datetime.combine(time, datetime.min.time())
-        if time.tzinfo is None:
-            time = time.replace(tzinfo=dateutil.tz.gettz('UTC'))
-        return time.astimezone(dateutil.tz.tzlocal()).replace(tzinfo=None)
+    def __without_tzinfo(self, dt):
+        if type(dt) == date:
+            dt = datetime.combine(dt, datetime.min.time())
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=dateutil.tz.gettz('UTC'))
+        return dt.astimezone(self.tzlocal).replace(tzinfo=None)
