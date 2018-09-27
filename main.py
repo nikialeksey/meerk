@@ -33,7 +33,10 @@ from meerk.calendar import Calendar
 from meerk.calendar import CompositeCalendar
 from meerk.calendar import IcsCalendar
 from meerk.calendar import LoggableCalendar
+from meerk.calendar import IgnoreDisconnectCalendar
 from meerk.intervals import SimpleIntervals
+from meerk.slack import IgnoreDisconnectApi
+from meerk.slack import SimpleApi as SimpleSlackApi
 from meerk.status import CompositeStatus
 from meerk.status import SlackStatus
 from meerk.status import Status
@@ -74,23 +77,31 @@ if __name__ == '__main__':
                 )
             )
         elif section.startswith('slack'):
-            sc = SlackClient(config.get(section, 'token'))
+            slack = IgnoreDisconnectApi(
+                SimpleSlackApi(
+                    SlackClient(config.get(section, 'token'))
+                )
+            )
             busy_statuses.append(
                 SlackStatus(
-                    sc,
+                    slack,
                     config.get(section, 'busy_text'),
                     config.get(section, 'busy_emoji')
                 )
             )
             available_statuses.append(
                 SlackStatus(
-                    sc,
+                    slack,
                     config.get(section, 'available_text'),
                     config.get(section, 'available_emoji')
                 )
             )
 
-    calendar = LoggableCalendar(CompositeCalendar(calendars))
+    calendar = IgnoreDisconnectCalendar(
+        LoggableCalendar(
+            CompositeCalendar(calendars)
+        )
+    )
     calendar.sync()
 
     busy = CompositeStatus(busy_statuses)

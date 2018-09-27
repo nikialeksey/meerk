@@ -19,34 +19,20 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from datetime import datetime
-from datetime import timedelta
+from requests.exceptions import ConnectionError
 
-from icalendar import Event
-
-from Calendar import Calendar
-from meerk.caldav import DAVClient
-from meerk.intervals import Intervals
+from Api import Api
 
 
-class CalDavCalendar(Calendar):
+class IgnoreDisconnectApi(Api):
 
-    def __init__(self, dav, intervals):
-        # type: (DAVClient, Intervals) -> CalDavCalendar
-        self.dav = dav
-        self.intervals = intervals
+    def __init__(self, origin):
+        # type: (Api) -> IgnoreDisconnectApi
+        self.origin = origin
 
-    def is_busy(self, time):
-        # type: (datetime) -> bool
-        return self.intervals.is_inside(time)
-
-    def sync(self):
-        # type: () -> None
-        start = datetime.now() - timedelta(days=1)
-        end = datetime.now() + timedelta(days=1)
-        calendars = self.dav.principal().calendars()
-        self.intervals.clear()
-        for calendar in calendars:
-            events = calendar.date_search(start, end)
-            for event in events:
-                self.intervals.add(Event.from_ical(event.data).walk(), start, end)
+    def call(self, method, **kwargs):
+        try:
+            return self.origin.call(method, **kwargs)
+        except ConnectionError as e:
+            print('Can\'not work with slack api because there is problems with connection')
+            return {'ok': True}
