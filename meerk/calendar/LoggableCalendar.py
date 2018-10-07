@@ -21,18 +21,16 @@
 # SOFTWARE.
 from datetime import datetime
 
-from Calendar import Calendar
+from .Calendar import Calendar
 
 
 class LoggableCalendar(Calendar):
 
-    def __init__(self, origin):
-        # type: (Calendar) -> LoggableCalendar
+    def __init__(self, origin: Calendar):
         self.origin = origin
         self.__is_busy = []
 
-    def is_busy(self, time):
-        # type: (datetime) -> bool
+    def is_busy(self, time: datetime) -> bool:
         is_busy = self.origin.is_busy(time)
         if not self.__is_busy:
             self.__is_busy = [not is_busy]
@@ -44,7 +42,6 @@ class LoggableCalendar(Calendar):
         return is_busy
 
     def sync(self):
-        # type: () -> None
         print('Start calendar syncing...')
         self.origin.sync()
         print('Syncing successful finished!')

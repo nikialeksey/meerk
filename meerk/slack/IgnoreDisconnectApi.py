@@ -19,20 +19,19 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from requests.exceptions import ConnectionError
+import requests.exceptions
 
-from Api import Api
+from .Api import Api
 
 
 class IgnoreDisconnectApi(Api):
 
-    def __init__(self, origin):
-        # type: (Api) -> IgnoreDisconnectApi
+    def __init__(self, origin: Api):
         self.origin = origin
 
-    def call(self, method, **kwargs):
+    def call(self, method: str, **kwargs) -> dict:
         try:
             return self.origin.call(method, **kwargs)
-        except ConnectionError as e:
+        except requests.exceptions.ConnectionError:
             print('Can\'not work with slack api because there is problems with connection')
             return {'ok': True}

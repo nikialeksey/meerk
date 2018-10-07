@@ -19,8 +19,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from CompositeStatus import CompositeStatus
-from LoggableStatus import LoggableStatus
-from SlackStatus import SlackStatus
-from Status import Status
-from SyncException import SyncException
+from meerk.status.CompositeStatus import CompositeStatus
+from meerk.status.LoggableStatus import LoggableStatus
+from meerk.status.SlackStatus import SlackStatus
+from meerk.status.Status import Status
+from meerk.status.SyncException import SyncException

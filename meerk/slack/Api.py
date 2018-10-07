@@ -26,6 +26,5 @@ class Api:
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def call(self, method, **kwargs):
-        # type: (str, dict) -> dict
+    def call(self, method: str, **kwargs) -> dict:
         pass

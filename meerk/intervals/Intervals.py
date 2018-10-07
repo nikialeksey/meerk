@@ -21,6 +21,8 @@
 # SOFTWARE.
 import abc
 from datetime import datetime
+from typing import List
+
 from icalendar.cal import Component
 
 
@@ -33,11 +35,9 @@ class Intervals:
         pass
 
     @abc.abstractmethod
-    def add(self, components, start, end):
-        # type: (list[Component], datetime, datetime) -> None
+    def add(self, components: List[Component], start: datetime, end: datetime):
         pass
 
     @abc.abstractmethod
-    def is_inside(self, time):
-        # type: (datetime) -> bool
+    def is_inside(self, time: datetime) -> bool:
         pass

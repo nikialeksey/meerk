@@ -21,15 +21,13 @@
 # SOFTWARE.
 from slackclient import SlackClient
 
-from Api import Api
+from .Api import Api
 
 
 class SimpleApi(Api):
 
-    def __init__(self, sc):
-        # type: (SlackClient) -> SimpleApi
-        self.sc = sc
+    def __init__(self, slack: SlackClient):
+        self.slack = slack
 
-    def call(self, method, **kwargs):
-        # type: (str, dict) -> dict
-        return self.sc.api_call(method, **kwargs)
+    def call(self, method: str, **kwargs) -> dict:
+        return self.slack.api_call(method, **kwargs)

@@ -24,24 +24,21 @@ from datetime import timedelta
 
 from icalendar import Event
 
-from Calendar import Calendar
 from meerk.caldav import DAVClient
 from meerk.intervals import Intervals
+from .Calendar import Calendar
 
 
 class CalDavCalendar(Calendar):
 
-    def __init__(self, dav, intervals):
-        # type: (DAVClient, Intervals) -> CalDavCalendar
+    def __init__(self, dav: DAVClient, intervals: Intervals):
         self.dav = dav
         self.intervals = intervals
 
-    def is_busy(self, time):
-        # type: (datetime) -> bool
+    def is_busy(self, time: datetime) -> bool:
         return self.intervals.is_inside(time)
 
     def sync(self):
-        # type: () -> None
         start = datetime.now() - timedelta(days=1)
         end = datetime.now() + timedelta(days=1)
         calendars = self.dav.principal().calendars()

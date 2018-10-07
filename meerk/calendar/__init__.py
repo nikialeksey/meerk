@@ -19,9 +19,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from CalDavCalendar import CalDavCalendar
-from Calendar import Calendar
-from CompositeCalendar import CompositeCalendar
-from IcsCalendar import IcsCalendar
-from IgnoreDisconnectCalendar import IgnoreDisconnectCalendar
-from LoggableCalendar import LoggableCalendar
+from meerk.calendar.CalDavCalendar import CalDavCalendar
+from meerk.calendar.Calendar import Calendar
+from meerk.calendar.CompositeCalendar import CompositeCalendar
+from meerk.calendar.IcsCalendar import IcsCalendar
+from meerk.calendar.IgnoreDisconnectCalendar import IgnoreDisconnectCalendar
+from meerk.calendar.LoggableCalendar import LoggableCalendar

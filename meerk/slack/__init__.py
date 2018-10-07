@@ -19,6 +19,6 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from Api import Api
-from IgnoreDisconnectApi import IgnoreDisconnectApi
-from SimpleApi import SimpleApi
+from meerk.slack.Api import Api
+from meerk.slack.IgnoreDisconnectApi import IgnoreDisconnectApi
+from meerk.slack.SimpleApi import SimpleApi

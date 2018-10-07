@@ -19,27 +19,39 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from datetime import datetime
-from typing import List
+from unittest import TestCase
 
-from .Calendar import Calendar
+import pycodestyle
+from pylint import epylint as lint
 
 
-class CompositeCalendar(Calendar):
+# todo #14:30 Add mypy
+class StaticAnalysisTest(TestCase):
 
-    def __init__(self, calendars: List[Calendar]):
-        self.calendars = calendars
+    def test_style(self):
+        result = self.__pycodestyle('../meerk/')
+        self.assertEqual(result.total_errors, 0, "Found code style errors or warnings.")
 
-    def is_busy(self, time: datetime) -> bool:
-        is_busy = False
+    def test_style_tests(self):
+        result = self.__pycodestyle('../tests/')
+        self.assertEqual(result.total_errors, 0, "Found tests style errors or warnings.")
 
-        for calendar in self.calendars:
-            if calendar.is_busy(time):
-                is_busy = True
-                break
+    def test_code_lint(self):
+        self.__pylint('../meerk')
 
-        return is_busy
+    def test_tests_lint(self):
+        self.__pylint('../tests')
 
-    def sync(self):
-        for calendar in self.calendars:
-            calendar.sync()
+    def __pycodestyle(self, path: str):
+        # pylint: disable=R0201
+        style = pycodestyle.StyleGuide(config_file='../setup.cfg')
+        return style.check_files([path])
+
+    def __pylint(self, path: str):
+        (out, err) = lint.py_run(path, return_std=True)
+        errors = err.read()  # type: str
+        report = out.read()  # type: str
+        if errors:
+            self.fail(errors)
+        elif 'Your code has been rated at 10.00/10' not in report:
+            self.fail(report)

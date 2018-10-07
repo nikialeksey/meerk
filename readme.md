@@ -1,7 +1,7 @@
 # Meerk
 
 [![Mit License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nikialeksey/meerk/blob/master/LICENSE)
-![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)
+![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)
 [![PyPI version](https://badge.fury.io/py/meerk.svg)](https://badge.fury.io/py/meerk)
 [![Build Status](https://travis-ci.org/nikialeksey/meerk.svg?branch=master)](https://travis-ci.org/nikialeksey/meerk)
 
@@ -9,7 +9,7 @@ Simple bot which notifies your chats that you are in a meeting
 
 ## How to run
 
-Firstly ensure you use `python 2.7`.
+Firstly ensure you use `python 3.7`.
 
 Clone project:
 
