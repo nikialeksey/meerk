@@ -76,3 +76,74 @@ END:VEVENT
         intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
         intervals.add(components, datetime(2018, 9, 26, 0, 0), datetime(2018, 9, 28, 0, 0))
         self.assertTrue(intervals.is_inside(datetime(2018, 9, 26, 17, 00)))
+
+    def test_all_day_event(self):
+        components = Component.from_ical(
+            """
+BEGIN:VEVENT
+SUMMARY:all day
+DTSTART;VALUE=DATE:20181007
+DTEND;VALUE=DATE:20181008
+DTSTAMP:20181007T043134Z
+UID:iq6zz5Cdyandex.ru
+SEQUENCE:0
+CATEGORIES:events
+CREATED:20181007T043121Z
+LAST-MODIFIED:20181007T043121Z
+TRANSP:OPAQUE
+URL:https://calendar.yandex.ru/for/siberian.pro/event?event_id=696510765
+END:VEVENT
+            """
+        ).walk()
+        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals.add(components, datetime(2018, 10, 6, 0, 0), datetime(2018, 10, 8, 0, 0))
+        self.assertTrue(intervals.is_inside(datetime(2018, 10, 7, 17, 00)))
+
+    def test_all_day_daily_event(self):
+        components = Component.from_ical(
+            """
+BEGIN:VEVENT
+SUMMARY:all day
+DTSTART;VALUE=DATE:20181007
+DTEND;VALUE=DATE:20181008
+DTSTAMP:20181007T044204Z
+UID:6uk40snnrfsarji6gitijk4k67@google.com
+SEQUENCE:0
+RRULE:FREQ=DAILY
+CREATED:20181007T044142Z
+DESCRIPTION:
+LAST-MODIFIED:20181007T044142Z
+LOCATION:
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+            """
+        ).walk()
+        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals.add(components, datetime(2018, 10, 6, 0, 0), datetime(2018, 10, 10, 0, 0))
+        self.assertTrue(intervals.is_inside(datetime(2018, 10, 9, 17, 00)))
+
+    def test_all_day_daily_with_modification_event(self):
+        components = Component.from_ical(
+            """
+BEGIN:VEVENT
+SUMMARY:all day
+DTSTART;VALUE=DATE:20181006
+DTEND;VALUE=DATE:20181007
+DTSTAMP:20181007T044526Z
+UID:0q9s66jci35g6fmjq9bi3m8pbk@google.com
+SEQUENCE:0
+RRULE:FREQ=DAILY
+EXDATE;VALUE=DATE:20181006
+CREATED:20181007T044447Z
+DESCRIPTION:
+LAST-MODIFIED:20181007T044447Z
+LOCATION:
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+            """
+        ).walk()
+        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals.add(components, datetime(2018, 10, 6, 0, 0), datetime(2018, 10, 10, 0, 0))
+        self.assertFalse(intervals.is_inside(datetime(2018, 10, 6, 17, 00)))

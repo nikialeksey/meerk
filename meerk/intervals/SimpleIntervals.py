@@ -29,6 +29,7 @@ from icalendar.cal import Component
 from intervaltree import IntervalTree, Interval
 
 from Intervals import Intervals
+import collections
 
 
 class SimpleIntervals(Intervals):
@@ -59,8 +60,12 @@ class SimpleIntervals(Intervals):
                         duration = dtend - dtstart
                         excludes = set()
                         if 'exdate' in component:
-                            for exdates in component['exdate']:
-                                for exdate in exdates.dts:
+                            if isinstance(component['exdate'], collections.Iterable):
+                                for exdates in component['exdate']:
+                                    for exdate in exdates.dts:
+                                        excludes.add(self.__without_tzinfo(exdate.dt).date())
+                            else:
+                                for exdate in component['exdate'].dts:
                                     excludes.add(self.__without_tzinfo(exdate.dt).date())
                         for time in filter(lambda time: time.date() not in excludes, list(rrule)):
                             self.tree.add(self.__interval(time, time + duration, component))
