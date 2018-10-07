@@ -31,7 +31,7 @@ from .Calendar import Calendar
 
 class CalDavCalendar(Calendar):
 
-    def __init__(self, dav: DAVClient, intervals: Intervals):
+    def __init__(self, dav: DAVClient, intervals: Intervals) -> None:
         self.dav = dav
         self.intervals = intervals
 

@@ -26,7 +26,7 @@ from .Api import Api
 
 class IgnoreDisconnectApi(Api):
 
-    def __init__(self, origin: Api):
+    def __init__(self, origin: Api) -> None:
         self.origin = origin
 
     def call(self, method: str, **kwargs) -> dict:

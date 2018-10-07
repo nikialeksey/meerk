@@ -23,9 +23,9 @@ from unittest import TestCase
 
 import pycodestyle
 from pylint import epylint as lint
+import mypy.api
 
 
-# todo #14:30 Add mypy
 class StaticAnalysisTest(TestCase):
 
     def test_style(self):
@@ -42,13 +42,26 @@ class StaticAnalysisTest(TestCase):
     def test_tests_lint(self):
         self.__pylint('../tests')
 
+    def test_code_mypy(self):
+        self.__mypy('../meerk')
+
+    def test_tests_mypy(self):
+        self.__mypy('../tests')
+
+    def __mypy(self, path: str):
+        (out, err, code) = mypy.api.run([path])
+        if err:
+            self.fail(err)
+        if code != 0:
+            self.fail(out)
+
     def __pycodestyle(self, path: str):
         # pylint: disable=R0201
-        style = pycodestyle.StyleGuide(config_file='../setup.cfg')
+        style = pycodestyle.StyleGuide(config_file='./pycodestyle.ini')
         return style.check_files([path])
 
     def __pylint(self, path: str):
-        (out, err) = lint.py_run(path, return_std=True)
+        (out, err) = lint.py_run(path + ' --rcfile=./tests/pylint.ini', return_std=True)
         errors = err.read()  # type: str
         report = out.read()  # type: str
         if errors:

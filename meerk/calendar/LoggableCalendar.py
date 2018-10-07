@@ -20,15 +20,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 from datetime import datetime
+from typing import List
 
 from .Calendar import Calendar
 
 
 class LoggableCalendar(Calendar):
 
-    def __init__(self, origin: Calendar):
+    def __init__(self, origin: Calendar) -> None:
         self.origin = origin
-        self.__is_busy = []
+        self.__is_busy: List[bool] = []
 
     def is_busy(self, time: datetime) -> bool:
         is_busy = self.origin.is_busy(time)

@@ -27,7 +27,7 @@ from .Calendar import Calendar
 
 class CompositeCalendar(Calendar):
 
-    def __init__(self, calendars: List[Calendar]):
+    def __init__(self, calendars: List[Calendar]) -> None:
         self.calendars = calendars
 
     def is_busy(self, time: datetime) -> bool:

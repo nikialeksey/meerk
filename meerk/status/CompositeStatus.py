@@ -26,7 +26,7 @@ from .Status import Status
 
 class CompositeStatus(Status):
 
-    def __init__(self, statuses: List[Status]):
+    def __init__(self, statuses: List[Status]) -> None:
         self.statuses = statuses
 
     def sync(self):

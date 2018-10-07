@@ -27,7 +27,7 @@ from .SyncException import SyncException
 
 class SlackStatus(Status):
 
-    def __init__(self, slack: Api, text: str, emoji: str):
+    def __init__(self, slack: Api, text: str, emoji: str) -> None:
         self.slack = slack
         self.text = text
         self.emoji = emoji

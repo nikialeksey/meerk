@@ -28,7 +28,7 @@ from .Calendar import Calendar
 
 class IgnoreDisconnectCalendar(Calendar):
 
-    def __init__(self, origin: Calendar):
+    def __init__(self, origin: Calendar) -> None:
         self.origin = origin
 
     def is_busy(self, time: datetime) -> bool:
