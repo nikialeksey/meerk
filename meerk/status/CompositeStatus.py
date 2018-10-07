@@ -19,16 +19,16 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from Status import Status
+from typing import List
+
+from .Status import Status
 
 
 class CompositeStatus(Status):
 
-    def __init__(self, statuses):
-        # type: (list[Status]) -> CompositeStatus
+    def __init__(self, statuses: List[Status]):
         self.statuses = statuses
 
     def sync(self):
-        # type: () -> None
         for status in self.statuses:
             status.sync()

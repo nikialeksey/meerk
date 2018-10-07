@@ -21,24 +21,21 @@
 # SOFTWARE.
 from datetime import datetime
 
-from requests.exceptions import ConnectionError
+import requests.exceptions
 
-from Calendar import Calendar
+from .Calendar import Calendar
 
 
 class IgnoreDisconnectCalendar(Calendar):
 
-    def __init__(self, origin):
-        # type: (Calendar) -> IgnoreDisconnectCalendar
+    def __init__(self, origin: Calendar):
         self.origin = origin
 
-    def is_busy(self, time):
-        # type: (datetime) -> bool
+    def is_busy(self, time: datetime) -> bool:
         return self.origin.is_busy(time)
 
     def sync(self):
-        # type: () -> None
         try:
             self.origin.sync()
-        except ConnectionError as e:
+        except requests.exceptions.ConnectionError:
             print('Can\'not sync calendar because there is problems with connection')

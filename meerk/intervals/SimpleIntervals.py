@@ -19,6 +19,9 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+# todo #14:30m Disable pylint skippinf for this file
+# pylint: skip-file
+import collections
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
@@ -27,24 +30,21 @@ from datetime import tzinfo
 import dateutil
 from icalendar.cal import Component
 from intervaltree import IntervalTree, Interval
+from typing import List
 
-from Intervals import Intervals
-import collections
+from .Intervals import Intervals
 
 
 class SimpleIntervals(Intervals):
 
-    def __init__(self, tzlocal):
-        # type: (tzinfo) -> SimpleIntervals
+    def __init__(self, tzlocal: tzinfo):
         self.tzlocal = tzlocal
         self.tree = IntervalTree()
 
     def clear(self):
-        # type: () -> None
         self.tree.clear()
 
-    def add(self, components, start, end):
-        # type: (list[Component], datetime, datetime) -> None
+    def add(self, components: List[Component], start: datetime, end: datetime):
         for component in components:
             if component.name == 'VEVENT':
                 raw_dtstart = component['dtstart']
@@ -72,18 +72,15 @@ class SimpleIntervals(Intervals):
                     else:
                         self.tree.add(self.__interval(dtstart, dtend, component))
 
-    def is_inside(self, time):
-        # type: (datetime) -> bool
+    def is_inside(self, time: datetime) -> bool:
         return len(self.tree[time]) > 0
 
-    def __interval(self, start, end, data):
-        # type: (datetime, datetime, object) -> Interval
+    def __interval(self, start: datetime, end: datetime, data: object) -> Interval:
         if start == end:
             end = end + timedelta(seconds=1)
         return Interval(start, end, data)
 
-    def __is_intersect(self, a, b, c, d):
-        # type: (datetime, datetime, datetime, datetime) -> bool
+    def __is_intersect(self, a: datetime, b: datetime, c: datetime, d: datetime) -> bool:
         return max(a, c) <= min(b, d)
 
     def __without_tzinfo(self, dt):

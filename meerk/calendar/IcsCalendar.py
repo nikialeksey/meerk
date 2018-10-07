@@ -19,30 +19,27 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import urllib2
+import urllib.request
 from datetime import datetime
 from datetime import timedelta
 
 from icalendar import Calendar as iCalendar
 
-from Calendar import Calendar
 from meerk.intervals import Intervals
+from .Calendar import Calendar
 
 
 class IcsCalendar(Calendar):
 
-    def __init__(self, url, intervals):
-        # type: (str, Intervals) -> IcsCalendar
+    def __init__(self, url: str, intervals: Intervals):
         self.url = url
         self.intervals = intervals
 
-    def is_busy(self, time):
-        # type: (datetime) -> bool
+    def is_busy(self, time: datetime) -> bool:
         return self.intervals.is_inside(time)
 
     def sync(self):
-        # type: () -> None
-        response = urllib2.urlopen(self.url)
+        response = urllib.request.urlopen(self.url)
         ical = response.read()
         self.intervals.clear()
         self.intervals.add(

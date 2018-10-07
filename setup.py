@@ -31,7 +31,7 @@ with open('requirements.txt') as r:
 
 setuptools.setup(
     name='meerk',
-    version='0.2.2',
+    version='0.3.0',
     description='',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -48,8 +48,8 @@ setuptools.setup(
         "Operating System :: POSIX :: Linux",
         "Operating System :: Microsoft :: Windows",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
     ],
     install_requires=install_requirements,
     setup_requires=["pytest-runner"],

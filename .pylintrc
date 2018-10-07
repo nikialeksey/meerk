@@ -1,0 +1,7 @@
+[MASTER]
+ignore=caldav
+disable=missing-docstring, too-few-public-methods
+
+[BASIC]
+module-rgx=((([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))|(([A-Z][a-z0-9]+)+))$
+docstring-min-length=-1

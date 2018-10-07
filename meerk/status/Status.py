@@ -27,5 +27,4 @@ class Status:
 
     @abc.abstractmethod
     def sync(self):
-        # type: () -> None
         pass

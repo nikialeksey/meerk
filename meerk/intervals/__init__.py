@@ -19,5 +19,5 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from Intervals import Intervals
-from SimpleIntervals import SimpleIntervals
+from meerk.intervals.Intervals import Intervals
+from meerk.intervals.SimpleIntervals import SimpleIntervals

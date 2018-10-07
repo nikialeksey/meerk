@@ -6,3 +6,6 @@ vobject == 0.9.6.1
 lxml == 4.2.5
 requests == 2.19.1
 six == 1.11.0
+pycodestyle == 2.4.0
+pylint == 2.1.1
+mypy == 0.630

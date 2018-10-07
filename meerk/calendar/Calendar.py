@@ -27,11 +27,9 @@ class Calendar:
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
-    def is_busy(self, time):
-        # type: (datetime) -> bool
+    def is_busy(self, time: datetime) -> bool:
         pass
 
     @abc.abstractmethod
     def sync(self):
-        # type: () -> None
         pass
