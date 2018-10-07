@@ -31,7 +31,7 @@ with open('requirements.txt') as r:
 
 setuptools.setup(
     name='meerk',
-    version='0.2.1',
+    version='0.2.2',
     description='',
     long_description=long_description,
     long_description_content_type="text/markdown",
