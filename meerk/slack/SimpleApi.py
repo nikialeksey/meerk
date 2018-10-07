@@ -26,7 +26,7 @@ from .Api import Api
 
 class SimpleApi(Api):
 
-    def __init__(self, slack: SlackClient):
+    def __init__(self, slack: SlackClient) -> None:
         self.slack = slack
 
     def call(self, method: str, **kwargs) -> dict:

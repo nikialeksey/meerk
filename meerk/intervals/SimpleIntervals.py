@@ -26,18 +26,19 @@ from datetime import date
 from datetime import datetime
 from datetime import timedelta
 from datetime import tzinfo
+from typing import List
 
-import dateutil
+import dateutil.rrule
+import dateutil.tz
 from icalendar.cal import Component
 from intervaltree import IntervalTree, Interval
-from typing import List
 
 from .Intervals import Intervals
 
 
 class SimpleIntervals(Intervals):
 
-    def __init__(self, tzlocal: tzinfo):
+    def __init__(self, tzlocal: tzinfo) -> None:
         self.tzlocal = tzlocal
         self.tree = IntervalTree()
 

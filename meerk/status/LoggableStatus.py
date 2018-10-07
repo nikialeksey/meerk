@@ -24,7 +24,7 @@ from .Status import Status
 
 class LoggableStatus(Status):
 
-    def __init__(self, origin: Status):
+    def __init__(self, origin: Status) -> None:
         self.origin = origin
 
     def sync(self):

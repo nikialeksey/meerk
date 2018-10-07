@@ -31,7 +31,7 @@ from .Calendar import Calendar
 
 class IcsCalendar(Calendar):
 
-    def __init__(self, url: str, intervals: Intervals):
+    def __init__(self, url: str, intervals: Intervals) -> None:
         self.url = url
         self.intervals = intervals
 
