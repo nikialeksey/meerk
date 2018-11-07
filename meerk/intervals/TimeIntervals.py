@@ -19,31 +19,20 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+import abc
 from datetime import datetime
-from datetime import timedelta
-
-from icalendar import Event
-
-from meerk.caldav import DAVClient
-from meerk.intervals import CalEventsIntervals
-from .Calendar import Calendar
 
 
-class CalDavCalendar(Calendar):
+class TimeIntervals(metaclass=abc.ABCMeta):
 
-    def __init__(self, dav: DAVClient, intervals: CalEventsIntervals) -> None:
-        self.dav = dav
-        self.intervals = intervals
+    @abc.abstractmethod
+    def clear(self) -> None:
+        pass
 
-    def is_busy(self, time: datetime) -> bool:
-        return self.intervals.is_inside(time)
+    @abc.abstractmethod
+    def add(self, start: datetime, end: datetime, data: object) -> None:
+        pass
 
-    def sync(self):
-        start = datetime.now() - timedelta(days=1)
-        end = datetime.now() + timedelta(days=1)
-        calendars = self.dav.principal().calendars()
-        self.intervals.clear()
-        for calendar in calendars:
-            events = calendar.date_search(start, end)
-            for event in events:
-                self.intervals.add(Event.from_ical(event.data).walk(), start, end)
+    @abc.abstractmethod
+    def is_inside(self, time: datetime) -> bool:
+        pass

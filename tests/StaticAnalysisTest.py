@@ -29,27 +29,27 @@ import mypy.api
 class StaticAnalysisTest(TestCase):
 
     def test_style(self):
-        result = self.__pycodestyle('../meerk/')
+        result = self.__pycodestyle('./meerk/')
         self.assertEqual(result.total_errors, 0, "Found code style errors or warnings.")
 
     def test_style_tests(self):
-        result = self.__pycodestyle('../tests/')
+        result = self.__pycodestyle('./tests/')
         self.assertEqual(result.total_errors, 0, "Found tests style errors or warnings.")
 
     def test_code_lint(self):
-        self.__pylint('../meerk')
+        self.__pylint('./meerk')
 
     def test_tests_lint(self):
-        self.__pylint('../tests')
+        self.__pylint('./tests')
 
     def test_code_mypy(self):
-        self.__mypy('../meerk')
+        self.__mypy('./meerk')
 
     def test_tests_mypy(self):
-        self.__mypy('../tests')
+        self.__mypy('./tests')
 
     def __mypy(self, path: str):
-        (out, err, code) = mypy.api.run([path])
+        (out, err, code) = mypy.api.run([path, '--config-file=./tests/mypy.ini'])
         if err:
             self.fail(err)
         if code != 0:
@@ -57,7 +57,7 @@ class StaticAnalysisTest(TestCase):
 
     def __pycodestyle(self, path: str):
         # pylint: disable=R0201
-        style = pycodestyle.StyleGuide(config_file='./pycodestyle.ini')
+        style = pycodestyle.StyleGuide(config_file='./tests/pycodestyle.ini')
         return style.check_files([path])
 
     def __pylint(self, path: str):

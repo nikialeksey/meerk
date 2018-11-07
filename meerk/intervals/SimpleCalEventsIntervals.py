@@ -24,26 +24,30 @@
 import collections
 from datetime import date
 from datetime import datetime
-from datetime import timedelta
 from datetime import tzinfo
 from typing import List
 
 import dateutil.rrule
 import dateutil.tz
 from icalendar.cal import Component
-from intervaltree import IntervalTree, Interval
 
-from .Intervals import Intervals
+from .CalEventsIntervals import CalEventsIntervals
+from .TimeIntervals import TimeIntervals
+from .InMemoryTimeIntervals import InMemporyTimeIntervals
 
 
-class SimpleIntervals(Intervals):
+class SimpleCalEventsIntervals(CalEventsIntervals):
 
-    def __init__(self, tzlocal: tzinfo) -> None:
+    def __init__(
+            self,
+            tzlocal: tzinfo,
+            intervals: TimeIntervals = InMemporyTimeIntervals()
+    ) -> None:
         self.tzlocal = tzlocal
-        self.tree = IntervalTree()
+        self.intervals = intervals
 
     def clear(self):
-        self.tree.clear()
+        self.intervals.clear()
 
     def add(self, components: List[Component], start: datetime, end: datetime):
         for component in components:
@@ -69,17 +73,12 @@ class SimpleIntervals(Intervals):
                                 for exdate in component['exdate'].dts:
                                     excludes.add(self.__without_tzinfo(exdate.dt).date())
                         for time in filter(lambda time: time.date() not in excludes, list(rrule)):
-                            self.tree.add(self.__interval(time, time + duration, component))
+                            self.intervals.add(time, time + duration, component)
                     else:
-                        self.tree.add(self.__interval(dtstart, dtend, component))
+                        self.intervals.add(dtstart, dtend, component)
 
     def is_inside(self, time: datetime) -> bool:
-        return len(self.tree[time]) > 0
-
-    def __interval(self, start: datetime, end: datetime, data: object) -> Interval:
-        if start == end:
-            end = end + timedelta(seconds=1)
-        return Interval(start, end, data)
+        return self.intervals.is_inside(time)
 
     def __is_intersect(self, a: datetime, b: datetime, c: datetime, d: datetime) -> bool:
         return max(a, c) <= min(b, d)

@@ -34,7 +34,7 @@ from meerk.calendar import CompositeCalendar
 from meerk.calendar import IcsCalendar
 from meerk.calendar import LoggableCalendar
 from meerk.calendar import IgnoreDisconnectCalendar
-from meerk.intervals import SimpleIntervals
+from meerk.intervals import SimpleCalEventsIntervals
 from meerk.slack import IgnoreDisconnectApi
 from meerk.slack import SimpleApi as SimpleSlackApi
 from meerk.status import CompositeStatus
@@ -66,14 +66,14 @@ if __name__ == '__main__':
                         username=config.get(section, 'username'),
                         password=config.get(section, 'password')
                     ),
-                    SimpleIntervals(dateutil.tz.tzlocal())
+                    SimpleCalEventsIntervals(dateutil.tz.tzlocal())
                 )
             )
         elif section.startswith('ics'):
             calendars.append(
                 IcsCalendar(
                     config.get(section, 'url'),
-                    SimpleIntervals(dateutil.tz.tzlocal())
+                    SimpleCalEventsIntervals(dateutil.tz.tzlocal())
                 )
             )
         elif section.startswith('slack'):
