@@ -25,13 +25,13 @@ from datetime import timedelta
 
 from icalendar import Calendar as iCalendar
 
-from meerk.intervals import Intervals
+from meerk.intervals import CalEventsIntervals
 from .Calendar import Calendar
 
 
 class IcsCalendar(Calendar):
 
-    def __init__(self, url: str, intervals: Intervals) -> None:
+    def __init__(self, url: str, intervals: CalEventsIntervals) -> None:
         self.url = url
         self.intervals = intervals
 

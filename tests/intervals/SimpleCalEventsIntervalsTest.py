@@ -25,10 +25,10 @@ from unittest import TestCase
 import dateutil
 from icalendar.cal import Component
 
-from meerk.intervals import SimpleIntervals
+from meerk.intervals import SimpleCalEventsIntervals
 
 
-class SimpleIntervalsTest(TestCase):
+class SimpleCalEventsIntervalsTest(TestCase):
     def test_exdates(self):
         components = Component.from_ical(
             """
@@ -50,7 +50,7 @@ URL:https://calendar.yandex.ru/for/siberian.pro/event?event_id=673628779
 END:VEVENT
             """
         ).walk()
-        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals = SimpleCalEventsIntervals(dateutil.tz.gettz('UTC'))
         intervals.add(components, datetime(2018, 9, 15, 0, 0), datetime(2018, 9, 17, 0, 0))
         self.assertFalse(intervals.is_inside(datetime(2018, 9, 16, 23, 0)))
 
@@ -72,7 +72,7 @@ URL:https://calendar.yandex.ru/for/siberian.pro/event?event_id=685344091
 END:VEVENT
             """
         ).walk()
-        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals = SimpleCalEventsIntervals(dateutil.tz.gettz('UTC'))
         intervals.add(components, datetime(2018, 9, 26, 0, 0), datetime(2018, 9, 28, 0, 0))
         self.assertTrue(intervals.is_inside(datetime(2018, 9, 27, 15, 30)))
 
@@ -94,7 +94,7 @@ TRANSP:OPAQUE
 END:VEVENT
             """
         ).walk()
-        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals = SimpleCalEventsIntervals(dateutil.tz.gettz('UTC'))
         intervals.add(components, datetime(2018, 9, 26, 0, 0), datetime(2018, 9, 28, 0, 0))
         self.assertTrue(intervals.is_inside(datetime(2018, 9, 26, 17, 00)))
 
@@ -116,7 +116,7 @@ URL:https://calendar.yandex.ru/for/siberian.pro/event?event_id=696510765
 END:VEVENT
             """
         ).walk()
-        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals = SimpleCalEventsIntervals(dateutil.tz.gettz('UTC'))
         intervals.add(components, datetime(2018, 10, 6, 0, 0), datetime(2018, 10, 8, 0, 0))
         self.assertTrue(intervals.is_inside(datetime(2018, 10, 7, 17, 00)))
 
@@ -140,7 +140,7 @@ TRANSP:TRANSPARENT
 END:VEVENT
             """
         ).walk()
-        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals = SimpleCalEventsIntervals(dateutil.tz.gettz('UTC'))
         intervals.add(components, datetime(2018, 10, 6, 0, 0), datetime(2018, 10, 10, 0, 0))
         self.assertTrue(intervals.is_inside(datetime(2018, 10, 9, 17, 00)))
 
@@ -165,6 +165,6 @@ TRANSP:TRANSPARENT
 END:VEVENT
             """
         ).walk()
-        intervals = SimpleIntervals(dateutil.tz.gettz('UTC'))
+        intervals = SimpleCalEventsIntervals(dateutil.tz.gettz('UTC'))
         intervals.add(components, datetime(2018, 10, 6, 0, 0), datetime(2018, 10, 10, 0, 0))
         self.assertFalse(intervals.is_inside(datetime(2018, 10, 6, 17, 00)))

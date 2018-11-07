@@ -19,25 +19,26 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import abc
 from datetime import datetime
-from typing import List
+from datetime import timedelta
 
-from icalendar.cal import Component
+from intervaltree import IntervalTree, Interval
+
+from .TimeIntervals import TimeIntervals
 
 
-class Intervals:
-    __metaclass__ = abc.ABCMeta
+class InMemporyTimeIntervals(TimeIntervals):
 
-    @abc.abstractmethod
-    def clear(self):
-        # type: () -> None
-        pass
+    def __init__(self):
+        self.tree = IntervalTree()
 
-    @abc.abstractmethod
-    def add(self, components: List[Component], start: datetime, end: datetime):
-        pass
+    def clear(self) -> None:
+        self.tree.clear()
 
-    @abc.abstractmethod
+    def add(self, start: datetime, end: datetime, data: object) -> None:
+        if start == end:
+            end = end + timedelta(seconds=1)
+        self.tree.add(Interval(start, end, data))
+
     def is_inside(self, time: datetime) -> bool:
-        pass
+        return len(self.tree[time]) > 0
